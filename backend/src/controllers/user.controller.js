@@ -195,11 +195,40 @@ const getCurrentUser = asyncHandler(async (req, res) => {
         .status(200)
         .json(new ApiResponse(200, req.user, "Current user fetched successfully"));
 });
+// ─── Get All Employees (Admin) ─────────────────────────────
+const getAllEmployees = asyncHandler(async (req, res) => {
+    const employees = await User.find({ role: "employee" })
+        .select("-password -refreshToken")
+        .sort({ createdAt: -1 });
 
+    return res
+        .status(200)
+        .json(new ApiResponse(200, employees, "All employees fetched successfully"));
+});
+
+// ─── Get Single Employee (Admin) ───────────────────────────
+const getEmployeeById = asyncHandler(async (req, res) => {
+    const employee = await User.findById(req.params.id)
+        .select("-password -refreshToken");
+
+    if (!employee) {
+        throw new ApiError(404, "Employee not found");
+    }
+
+    if (employee.role === "admin") {
+        throw new ApiError(403, "Access denied");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, employee, "Employee fetched successfully"));
+});
 export {
     registerUser,
     loginUser,
     logoutUser,
     refreshAccessToken,
     getCurrentUser,
+    getAllEmployees,
+    getEmployeeById
 };

@@ -16,8 +16,12 @@ app.use(cookieParser());
 //routes import
 import userRouter from './routes/user.routes.js'
 import leaveRoutes from "./routes/leave.routes.js";
+import attendanceRoutes from "./routes/attendance.routes.js";
+
+
 //routes declaration
 app.use("/api/v1/users",userRouter);
 app.use("/api/v1/leave", leaveRoutes);
+app.use("/api/v1/attendance", attendanceRoutes);
 
 export { app };

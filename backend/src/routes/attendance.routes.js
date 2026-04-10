@@ -1,25 +1,19 @@
 import { Router } from "express";
 import {
-    applyLeave,
-    getMyLeaves,
-    editLeave,
-    cancelLeave,
-    getAllLeaves,
-    actionLeave,
-} from "../controllers/leave.controller.js";
+    markAttendance,
+    getMyAttendance,
+    getAllAttendance,
+} from "../controllers/attendance.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { isAdmin } from "../middlewares/role.middleware.js";
 
 const router = Router();
 
 // ─── Employee Routes ───────────────────────────────────────
-router.route("/apply").post(verifyJWT, applyLeave);
-router.route("/my").get(verifyJWT, getMyLeaves);
-router.route("/:id/edit").patch(verifyJWT, editLeave);
-router.route("/:id/cancel").delete(verifyJWT, cancelLeave);
+router.route("/mark").post(verifyJWT, markAttendance);
+router.route("/my").get(verifyJWT, getMyAttendance);
 
 // ─── Admin Routes ──────────────────────────────────────────
-router.route("/all").get(verifyJWT, isAdmin, getAllLeaves);
-router.route("/:id/action").patch(verifyJWT, isAdmin, actionLeave);
+router.route("/all").get(verifyJWT, isAdmin, getAllAttendance);
 
 export default router;

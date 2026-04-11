@@ -5,7 +5,7 @@ const app = express();
 
 
 app.use(cors({
-    origin: "https://literate-giggle-v6vrqjg967wrfvq7-5173.app.github.dev" || process.env.CORS_ORIGIN,
+    origin: "https://literate-giggle-v6vrqjg967wrfvq7-5173.app.github.dev" || "https://mini-hr-system-topaz.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],

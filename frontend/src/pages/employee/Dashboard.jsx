@@ -60,7 +60,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="space-y-6 mt-6">
+    <div className="space-y-6">
       <div className="grid gap-6 xl:grid-cols-[1.5fr_1fr]">
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <p className="text-sm text-slate-500">Welcome back</p>

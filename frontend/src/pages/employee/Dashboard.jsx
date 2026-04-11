@@ -60,7 +60,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-6">
       <div className="grid gap-6 xl:grid-cols-[1.5fr_1fr]">
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <p className="text-sm text-slate-500">Welcome back</p>
@@ -73,12 +73,9 @@ export default function Dashboard() {
         </section>
 
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <p className="text-sm text-slate-500">Leave balance</p>
-              <p className="mt-2 text-2xl font-semibold text-slate-950">{user?.leaveBalance} / 20 days</p>
-            </div>
-            <StatusBadge status={user?.role === "admin" ? "Admin" : "Employee"} />
+          <div>
+            <p className="text-sm text-slate-500">Leave balance</p>
+            <p className="mt-2 text-2xl font-semibold text-slate-950">{user?.leaveBalance} / 20 days</p>
           </div>
           <div className="mt-5 h-3 overflow-hidden rounded-full bg-slate-100">
             <div className="h-full rounded-full bg-indigo-600" style={{ width: `${balancePercentage}%` }} />

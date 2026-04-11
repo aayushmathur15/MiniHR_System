@@ -7,6 +7,7 @@ import Toaster from "@/components/Toaster";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
+import Profile from "@/pages/Profile";
 import EmployeeDashboard from "@/pages/employee/Dashboard";
 import ApplyLeave from "@/pages/employee/ApplyLeave";
 import LeaveHistory from "@/pages/employee/LeaveHistory";
@@ -44,6 +45,7 @@ function App() {
           <Route path="/apply-leave" element={<ApplyLeave />} />
           <Route path="/leave-history" element={<LeaveHistory />} />
           <Route path="/attendance" element={<Attendance />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
 
         <Route element={<AdminRoute><Layout /></AdminRoute>}>
@@ -51,6 +53,7 @@ function App() {
           <Route path="/admin/leave-requests" element={<LeaveRequests />} />
           <Route path="/admin/attendance" element={<AttendanceOverview />} />
           <Route path="/admin/employees" element={<Employees />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

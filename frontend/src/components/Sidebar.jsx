@@ -23,9 +23,9 @@ export default function Sidebar({ isOpen, onClose }) {
   return (
     <div
       className={
-        `fixed inset-y-0 left-0 z-40 w-72 overflow-y-auto border-r border-slate-200 bg-white p-6 shadow-sm transition-transform duration-300 xl:static xl:translate-x-0 ${
+        `fixed left-0 top-16 bottom-0 z-40 w-64 overflow-y-auto border-r border-slate-200 bg-white p-6 shadow-sm transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        }`
+        } xl:translate-x-0`
       }
     >
       <div className="flex items-center justify-between gap-4 pb-6 xl:hidden">

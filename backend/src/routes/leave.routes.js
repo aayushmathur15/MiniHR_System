@@ -12,13 +12,13 @@ import { isAdmin } from "../middlewares/role.middleware.js";
 
 const router = Router();
 
-// ─── Employee Routes ───────────────────────────────────────
+// Employee Routes 
 router.route("/apply").post(verifyJWT, applyLeave);
 router.route("/my").get(verifyJWT, getMyLeaves);
 router.route("/:id/edit").patch(verifyJWT, editLeave);
 router.route("/:id/cancel").delete(verifyJWT, cancelLeave);
 
-// ─── Admin Routes ──────────────────────────────────────────
+// Admin Routes 
 router.route("/all").get(verifyJWT, isAdmin, getAllLeaves);
 router.route("/:id/action").patch(verifyJWT, isAdmin, actionLeave);
 

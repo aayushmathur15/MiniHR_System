@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { Leave } from "../models/leave.model.js";
 import { User } from "../models/user.model.js";
 
-// ─── Helper: Calculate Total Days ─────────────────────────
+// calculating total days of leave
 const calculateTotalDays = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -13,9 +13,10 @@ const calculateTotalDays = (startDate, endDate) => {
     return totalDays;
 };
 
-// ─── Apply Leave (Employee) ────────────────────────────────
+// applying leave
 const applyLeave = asyncHandler(async (req, res) => {
     /*
+    Steps Involved: 
     1. Get leaveType, startDate, endDate, reason from req.body
     2. Validate fields
     3. Ensure startDate is not in the past
@@ -76,7 +77,7 @@ const getMyLeaves = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, leaves, "Leave history fetched successfully"));
 });
 
-// ─── Edit Leave (Employee) ─────────────────────────────────
+// editing leave before approval
 const editLeave = asyncHandler(async (req, res) => {
     /*
     1. Find leave by id
@@ -130,7 +131,7 @@ const editLeave = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, leave, "Leave request updated successfully"));
 });
 
-// ─── Cancel Leave (Employee) ───────────────────────────────
+// cancel leave requests before approval
 const cancelLeave = asyncHandler(async (req, res) => {
     const leave = await Leave.findById(req.params.id);
 
@@ -153,7 +154,7 @@ const cancelLeave = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "Leave request cancelled successfully"));
 });
 
-// ─── Get All Leaves (Admin) ────────────────────────────────
+// get all leave requests (admin)
 const getAllLeaves = asyncHandler(async (req, res) => {
     const leaves = await Leave.find()
         .populate("employee", "fullName email leaveBalance")
@@ -165,9 +166,10 @@ const getAllLeaves = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, leaves, "All leave requests fetched successfully"));
 });
 
-// ─── Approve or Reject Leave (Admin) ──────────────────────
+// approving or rejecting leave requests (admin)
 const actionLeave = asyncHandler(async (req, res) => {
     /*
+    Steps: 
     1. Find leave by id
     2. Ensure status is "Pending"
     3. If Approved — deduct totalDays from employee's leaveBalance

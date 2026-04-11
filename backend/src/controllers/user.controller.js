@@ -5,7 +5,7 @@ import { User } from "../models/user.model.js";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import { response } from "express";
-// ─── Helper ────────────────────────────────────────────────
+
 const generateAccessTokenAndRefreshToken = async (userId) => {
     try {
         const user = await User.findById(userId);
@@ -21,7 +21,7 @@ const generateAccessTokenAndRefreshToken = async (userId) => {
     }
 };
 
-// ─── Cookie Options ────────────────────────────────────────
+
 const cookieOptions = {
     httpOnly: true,
     secure: true,
@@ -29,9 +29,10 @@ const cookieOptions = {
     path: "/",
 };
 
-// ─── Register ──────────────────────────────────────────────
+// registering new user (employee)
 const registerUser = asyncHandler(async (req, res) => {
     /*
+    Steps: 
     1. Get fullName, email, password from req.body
     2. Validate — no empty fields
     3. Check if user already exists
@@ -73,6 +74,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // ─── Login ─────────────────────────────────────────────────
 const loginUser = asyncHandler(async (req, res) => {
     /*
+    Steps:
     1. Get email, password from req.body
     2. Validate — no empty fields
     3. Find user by email
@@ -118,7 +120,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
 // ─── Logout ────────────────────────────────────────────────
 const logoutUser = asyncHandler(async (req, res) => {
-    /*
+    /* 
+    Steps:
     1. verifyJWT middleware already attached req.user
     2. Unset refreshToken in DB
     3. Clear cookies
@@ -137,7 +140,7 @@ const logoutUser = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "User logged out successfully"));
 });
 
-// ─── Refresh Access Token ──────────────────────────────────
+// refresh Access Token
 const refreshAccessToken = asyncHandler(async (req, res) => {
     /*
     1. Get refresh token from cookies or body
@@ -188,14 +191,14 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     }
 });
 
-// ─── Get Current User ──────────────────────────────────────
+// get Current User (protected route )
 const getCurrentUser = asyncHandler(async (req, res) => {
     // verifyJWT already attached full user to req.user
     return res
         .status(200)
         .json(new ApiResponse(200, req.user, "Current user fetched successfully"));
 });
-// ─── Get All Employees (Admin) ─────────────────────────────
+// get all employees (Admin)
 const getAllEmployees = asyncHandler(async (req, res) => {
     const employees = await User.find({ role: "employee" })
         .select("-password -refreshToken")
@@ -206,7 +209,7 @@ const getAllEmployees = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, employees, "All employees fetched successfully"));
 });
 
-// ─── Get Single Employee (Admin) ───────────────────────────
+// get employee by id (admin only)
 const getEmployeeById = asyncHandler(async (req, res) => {
     const employee = await User.findById(req.params.id)
         .select("-password -refreshToken");

@@ -9,11 +9,10 @@ import { isAdmin } from "../middlewares/role.middleware.js";
 
 const router = Router();
 
-// ─── Employee Routes ───────────────────────────────────────
+// Employee Rotes
 router.route("/mark").post(verifyJWT, markAttendance);
 router.route("/my").get(verifyJWT, getMyAttendance);
-
-// ─── Admin Routes ──────────────────────────────────────────
+// Admin Routes 
 router.route("/all").get(verifyJWT, isAdmin, getAllAttendance);
 
 export default router;
